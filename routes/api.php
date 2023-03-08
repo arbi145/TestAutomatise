@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('login', [AuthController::class,'login']);
+Route::post('register', [AuthController::class,'register']);
+
+//Route::get('affiche',[ProjetController::class,'index']);
+//Route::post('ajout',[ProjetController::class,'store']);
+//Route::put('update',[ProjetController::class,'update']);
+//Route::delete('delete',[ProjetController::class,'destroy']);
+
+Route::apiResource('projets',ProjetController::class);
+
+
