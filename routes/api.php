@@ -3,8 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Projet1Controller;
 use App\Http\Controllers\ProjetController;
 use App\Http\Controllers\PythonController;
+use App\Models\Projet;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +33,9 @@ Route::post('register', [AuthController::class,'register']);
 
 Route::apiResource('projets',ProjetController::class);
 Route::post('/hello',[PythonController::class,'run']);
+Route::get('/data', function(){
+    $data = Projet::all();
+    return response()->json($data);
+});
+Route::post('/get-scores',[PythonController::class,'getScores']);
 
