@@ -44,6 +44,24 @@ class AuthController extends Controller
 
     return response()->json(['message' => 'User created successfully'], 201);
     }
+   public function logout(Request $request)
+   {
+    try {
+        // Check if the user is authenticated
+        if (JWTAuth::parseToken()->authenticate()) {
+            // Invalidate the token for the authenticated user
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+            return response()->json(['message' => 'Logged out successfully'], 200);
+        }
+    } catch (JWTException $e) {
+        // Handle JWT exceptions
+        return response()->json(['error' => 'Failed to logout'], 500);
+    }
+
+    // Return error response if the user is not authenticated
+    return response()->json(['error' => 'User not found'], 404);
+   }
 }
 
 
